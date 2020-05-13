@@ -1,0 +1,100 @@
+C:\Users\Bruna Sena>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database veterinaria;
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [(none)]> use veterinaria;
+Database changed
+MariaDB [veterinaria]> create table dono(
+    -> codDono int primary key auto_increment,
+    -> nome varchar(255),
+    -> cpf varchar(20) unique,
+    -> telefone varchar(20));
+Query OK, 0 rows affected (0.206 sec)
+
+MariaDB [veterinaria]> create table animal(
+    -> idAnimal int primary key auto_increment,
+    -> nome varchar(255),
+    -> raca varchar(255),
+    -> peso decimal(7,2),
+    -> dono int,
+    -> FOREIGN KEY (dono) references dono(codDono));
+Query OK, 0 rows affected (0.173 sec)
+
+MariaDB [veterinaria]> describe animal;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| idAnimal | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome     | varchar(255) | YES  |     | NULL    |                |
+| raca     | varchar(255) | YES  |     | NULL    |                |
+| peso     | decimal(7,2) | YES  |     | NULL    |                |
+| dono     | int(11)      | YES  | MUL | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.160 sec)
+
+MariaDB [veterinaria]> describe dono;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| codDono  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome     | varchar(255) | YES  |     | NULL    |                |
+| cpf      | varchar(20)  | YES  | UNI | NULL    |                |
+| telefone | varchar(20)  | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.064 sec)
+
+MariaDB [veterinaria]> insert into dono (nome, cpf, telefone) VALUES
+    -> ('Brenda de Sena', '123.654.789.01','11-68425-8956'),
+    -> ('Bruna de Sena','789.654.123.09','11-32657-1269'),
+    -> ('Maria Verônica de Sena','456.987.321.05','11-21475-6489');
+Query OK, 3 rows affected (0.071 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> insert into dono values
+    -> ('','Lucas da Silva','564.321.566-36','11-99999-9999'),
+    -> ('','Felipe Castro','359.625.255-41','11-55555-5627');
+Query OK, 2 rows affected, 2 warnings (0.087 sec)
+Records: 2  Duplicates: 0  Warnings: 2
+
+MariaDB [veterinaria]> insert into animal (nome,peso,raca,dono) VALUES
+    -> ('Hanna',5,'Yorkshire',1),
+    -> ('Toddy',4.3,'Vira lata',2),
+    -> ('Mel',20,'Pastor Alemão',3);
+Query OK, 3 rows affected (0.103 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> ALTER TABLE animal ADD COLUMN tipoAnimal varchar(255);
+Query OK, 0 rows affected (0.090 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> UPDATE animal SET tipoAnimal='Cachorro' where idAnimal= 1;
+Query OK, 1 row affected (0.212 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> UPDATE animal SET tipoAnimal='Cachorro' where idAnimal= 2;
+Query OK, 1 row affected (0.050 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> UPDATE animal SET tipoAnimal='Cachorro' where idAnimal= 3;
+Query OK, 1 row affected (0.047 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
