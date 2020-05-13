@@ -1,0 +1,78 @@
+C:\Users\Bruna Sena>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+MariaDB [(none)]> create database ConcessionariaA;
+Query OK, 1 row affected (0.077 sec)
+
+MariaDB [(none)]> use ConcessionariaA;
+Database changed
+MariaDB [ConcessionariaA]> create table VEICULO (
+    -> codVeiculo int primary key auto_increment,
+    -> marca varchar(50),
+    -> modelo varchar(50),
+    -> anofabricacao int,
+    -> anoModelo int,
+    -> combustivel char(1));
+Query OK, 0 rows affected (0.318 sec)
+
+MariaDB [ConcessionariaA]> alter table VEICULO add column valor decimal(7,2);
+Query OK, 0 rows affected (0.328 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ConcessionariaA]> alter table VEICULO add column motor varchar(50);
+Query OK, 0 rows affected (0.067 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ConcessionariaA]> describe VEICULO;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| codVeiculo    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| marca         | varchar(50)  | YES  |     | NULL    |                |
+| modelo        | varchar(50)  | YES  |     | NULL    |                |
+| anofabricacao | int(11)      | YES  |     | NULL    |                |
+| anoModelo     | int(11)      | YES  |     | NULL    |                |
+| combustivel   | char(1)      | YES  |     | NULL    |                |
+| valor         | decimal(7,2) | YES  |     | NULL    |                |
+| motor         | varchar(50)  | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.212 sec)
+
+MariaDB [ConcessionariaA]> alter table VEICULO drop column motor;
+Query OK, 0 rows affected (0.269 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ConcessionariaA]> describe VEICULO;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| codVeiculo    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| marca         | varchar(50)  | YES  |     | NULL    |                |
+| modelo        | varchar(50)  | YES  |     | NULL    |                |
+| anofabricacao | int(11)      | YES  |     | NULL    |                |
+| anoModelo     | int(11)      | YES  |     | NULL    |                |
+| combustivel   | char(1)      | YES  |     | NULL    |                |
+| valor         | decimal(7,2) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.041 sec)
+
+MariaDB [ConcessionariaA]> drop table VEICULO;
+Query OK, 0 rows affected (0.335 sec)
+
+MariaDB [ConcessionariaA]> drop database ConcessionariaA;
+Query OK, 0 rows affected (0.222 sec)
